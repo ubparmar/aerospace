@@ -3,19 +3,9 @@ import pandas as pd
 import joblib
 import re
 import datetime
-import os
-
-# Define the base path to the model directory
-base_path = os.path.dirname(__file__)
-
 # Load the model and encoders
-model_path = os.path.join(base_path, 'model', 'airline_price_model.pkl')
-model = joblib.load(model_path)
-
-encoders = {}
-for col in ['Airline', 'Source', 'Destination', 'Number of Stops', 'Class']:
-    encoder_path = os.path.join(base_path, 'model', f'{col}_encoder.pkl')
-    encoders[col] = joblib.load(encoder_path)
+model = joblib.load('../model/airline_price_model.pkl')
+encoders = {col: joblib.load(f'../model/{col}_encoder.pkl') for col in ['Airline', 'Source', 'Destination', 'Number of Stops', 'Class']}
 
 # User inputs
 st.title('Airline Ticket Price Prediction')
