@@ -3,4 +3,4 @@ pandas
 joblib
 pathlib
 lightgbm
-sklearn
+scikit-learn
