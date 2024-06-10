@@ -57,7 +57,6 @@ st.markdown(
 )
 
 # Display profile picture with fading effect
-st.image(f"data:image/jpg;base64,{bg_img_base64}", use_column_width=True, caption="Airline Ticket Price Prediction")
 
 # User inputs
 st.title('Airline Ticket Price Prediction')
