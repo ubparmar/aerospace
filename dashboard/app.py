@@ -5,6 +5,7 @@ import re
 import datetime
 from pathlib import Path
 import base64
+import matplotlib.pyplot as plt
 
 # Define the base path to the model directory
 base_path = Path(__file__).parent
@@ -57,9 +58,10 @@ st.markdown(
 )
 
 # Display profile picture with fading effect
+st.image(f"data:image/jpg;base64,{bg_img_base64}", use_column_width=True, caption="Airline Ticket Price Prediction")
 
 # User inputs
-st.title('Airline Ticket Price Prediction(Data Detectives)')
+st.title('Airline Ticket Price Prediction')
 
 st.subheader('Airline Information')
 col1, col2, col3 = st.columns([1, 1, 1])
@@ -117,3 +119,12 @@ if st.button('Predict Price'):
     ]
     prediction = model.predict([encoded_inputs])
     st.write(f'Predicted Price: CAD {prediction[0]:.2f}')
+
+    # Simple visualization example
+    data = {
+        'Features': ['Airline', 'Source', 'Destination', 'Number of Stops', 'Class'],
+        'Importance': [0.2, 0.3, 0.15, 0.1, 0.25]
+    }
+    df = pd.DataFrame(data)
+    st.subheader('Feature Importance')
+    st.bar_chart(df.set_index('Features')['Importance'])
