@@ -3,18 +3,18 @@ import pandas as pd
 import joblib
 import re
 import datetime
-import os
+from pathlib import Path
 
 # Define the base path to the model directory
-base_path = os.path.dirname(__file__)
+base_path = Path(__file__).parent
 
 # Load the model and encoders
-model_path = os.path.join(base_path, 'model', 'airline_price_model.pkl')
+model_path = base_path / 'model' / 'airline_price_model.pkl'
 model = joblib.load(model_path)
 
 encoders = {}
 for col in ['Airline', 'Source', 'Destination', 'Number of Stops', 'Class']:
-    encoder_path = os.path.join(base_path, 'model', f'{col}_encoder.pkl')
+    encoder_path = base_path / 'model' / f'{col}_encoder.pkl'
     encoders[col] = joblib.load(encoder_path)
 
 # User inputs
