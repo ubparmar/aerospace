@@ -3,19 +3,9 @@ import pandas as pd
 import joblib
 import re
 import datetime
-from pathlib import Path
-
-# Define the base path to the model directory
-base_path = Path(__file__).parent
-
 # Load the model and encoders
-model_path = base_path / 'model' / 'airline_price_model.pkl'
-model = joblib.load(model_path)
-
-encoders = {}
-for col in ['Airline', 'Source', 'Destination', 'Number of Stops', 'Class']:
-    encoder_path = base_path / 'model' / f'{col}_encoder.pkl'
-    encoders[col] = joblib.load(encoder_path)
+model = joblib.load('model/airline_price_model.pkl')
+encoders = {col: joblib.load(f'model/{col}_encoder.pkl') for col in ['Airline', 'Source', 'Destination', 'Number of Stops', 'Class']}
 
 # User inputs
 st.title('Airline Ticket Price Prediction')
@@ -68,7 +58,7 @@ encoded_inputs = [
     days_left
 ]
 
-# Predict price
+# Predict price here
 if st.button('Predict Price'):
     prediction = model.predict([encoded_inputs])
     st.write(f'Predicted Price: CAD {prediction[0]:.2f}')
