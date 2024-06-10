@@ -24,19 +24,29 @@ def get_base64_of_bin_file(bin_file):
         data = f.read()
     return base64.b64encode(data).decode()
 
-# Path to the profile image file
-profile_img_path = base_path / 'image' / 'airplane.jpg'
-profile_img_base64 = get_base64_of_bin_file(profile_img_path)
+# Path to the background image file
+bg_img_path = base_path / 'image' / 'airplane.jpg'
+bg_img_base64 = get_base64_of_bin_file(bg_img_path)
 
-# Custom CSS for profile image
+# Custom CSS for background image and input styling
 st.markdown(
     f"""
     <style>
+    .stApp {{
+        background-image: url("data:image/jpg;base64,{bg_img_base64}");
+        background-size: cover;
+    }}
+    .stApp > div:first-child {{
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }}
     .profile-pic {{
         display: block;
         margin-left: auto;
         margin-right: auto;
-        width: 50%;
+        width: 150px;
         border-radius: 50%;
         transition: opacity 0.5s ease-in-out;
         opacity: 0.8;
@@ -45,22 +55,21 @@ st.markdown(
         opacity: 1;
     }}
     </style>
-    <img src="data:image/jpg;base64,{profile_img_base64}" class="profile-pic">
     """,
     unsafe_allow_html=True
 )
 
-# Sidebar
-st.sidebar.title('Airline Ticket Price Prediction')
-
-airline = st.sidebar.selectbox('Airline', encoders['Airline'].classes_)
-source = st.sidebar.selectbox('Source', encoders['Source'].classes_)
-destination = st.sidebar.selectbox('Destination', encoders['Destination'].classes_)
-number_of_stops = st.sidebar.selectbox('Number of Stops', encoders['Number of Stops'].classes_)
-flight_class = st.sidebar.selectbox('Class', encoders['Class'].classes_)
+# Display profile picture in the main section
+st.image(f"data:image/jpg;base64,{bg_img_base64}", use_column_width=True, caption="Airline Ticket Price Prediction")
 
 # User inputs
 st.title('Airline Ticket Price Prediction')
+
+airline = st.selectbox('Airline', encoders['Airline'].classes_)
+source = st.selectbox('Source', encoders['Source'].classes_)
+destination = st.selectbox('Destination', encoders['Destination'].classes_)
+number_of_stops = st.selectbox('Number of Stops', encoders['Number of Stops'].classes_)
+flight_class = st.selectbox('Class', encoders['Class'].classes_)
 
 departure_time = st.time_input('Departure Time', value=datetime.time(10, 0))
 arrival_time = st.time_input('Arrival Time', value=datetime.time(10, 0))
