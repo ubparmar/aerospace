@@ -17,20 +17,35 @@ for col in ['Airline', 'Source', 'Destination', 'Number of Stops', 'Class']:
     encoder_path = base_path / 'model' / f'{col}_encoder.pkl'
     encoders[col] = joblib.load(encoder_path)
 
+# Custom CSS for background image
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-image: url("https://www.link_to_your_image.jpg");
+        background-size: cover;
+    }
+    .sidebar .sidebar-content {
+        background: rgba(255, 255, 255, 0.9);
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Sidebar
+st.sidebar.title('Airline Ticket Price Prediction')
+
+airline = st.sidebar.selectbox('Airline', encoders['Airline'].classes_)
+source = st.sidebar.selectbox('Source', encoders['Source'].classes_)
+destination = st.sidebar.selectbox('Destination', encoders['Destination'].classes_)
+number_of_stops = st.sidebar.selectbox('Number of Stops', encoders['Number of Stops'].classes_)
+flight_class = st.sidebar.selectbox('Class', encoders['Class'].classes_)
+
 # User inputs
 st.title('Airline Ticket Price Prediction')
 
-airline = st.selectbox('Airline', encoders['Airline'].classes_)
-source = st.selectbox('Source', encoders['Source'].classes_)
-destination = st.selectbox('Destination', encoders['Destination'].classes_)
-number_of_stops = st.selectbox('Number of Stops', encoders['Number of Stops'].classes_)
-flight_class = st.selectbox('Class', encoders['Class'].classes_)
-
-# Departure and arrival times
-st.subheader('Departure Time')
 departure_time = st.time_input('Departure Time', value=datetime.time(10, 0))
-
-st.subheader('Arrival Time')
 arrival_time = st.time_input('Arrival Time', value=datetime.time(10, 0))
 
 flight_date = st.date_input('Flight Date')
