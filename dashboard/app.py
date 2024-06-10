@@ -63,35 +63,32 @@ st.image(f"data:image/jpg;base64,{bg_img_base64}", use_column_width=True, captio
 st.title('Airline Ticket Price Prediction')
 
 st.subheader('Airline Information')
-with st.form(key='airline_form'):
-    col1, col2, col3 = st.columns([1, 1, 1])
-    with col1:
-        airline = st.selectbox('Airline', encoders['Airline'].classes_)
-    with col2:
-        source = st.selectbox('Source', encoders['Source'].classes_)
-    with col3:
-        destination = st.selectbox('Destination', encoders['Destination'].classes_)
+col1, col2, col3 = st.columns([1, 1, 1])
+with col1:
+    airline = st.selectbox('Airline', encoders['Airline'].classes_)
+with col2:
+    source = st.selectbox('Source', encoders['Source'].classes_)
+with col3:
+    destination = st.selectbox('Destination', encoders['Destination'].classes_)
 
 st.subheader('Flight Details')
-with st.form(key='flight_form'):
-    col1, col2, col3 = st.columns([1, 1, 1])
-    with col1:
-        number_of_stops = st.selectbox('Number of Stops', encoders['Number of Stops'].classes_)
-    with col2:
-        flight_class = st.selectbox('Class', encoders['Class'].classes_)
-    with col3:
-        departure_time = st.time_input('Departure Time', value=datetime.time(10, 0))
-        arrival_time = st.time_input('Arrival Time', value=datetime.time(10, 0))
+col1, col2, col3 = st.columns([1, 1, 1])
+with col1:
+    number_of_stops = st.selectbox('Number of Stops', encoders['Number of Stops'].classes_)
+with col2:
+    flight_class = st.selectbox('Class', encoders['Class'].classes_)
+with col3:
+    departure_time = st.time_input('Departure Time', value=datetime.time(10, 0))
+    arrival_time = st.time_input('Arrival Time', value=datetime.time(10, 0))
 
 st.subheader('Date and Additional Information')
-with st.form(key='date_form'):
-    col1, col2, col3 = st.columns([1, 1, 1])
-    with col1:
-        flight_date = st.date_input('Flight Date')
-    with col2:
-        days_left = st.slider('Days Left for Flight', 0, 365, 30)
-    with col3:
-        total_stopover_time = st.text_input('Total Stopover Time (e.g., "3h 25m")', '0')
+col1, col2, col3 = st.columns([1, 1, 1])
+with col1:
+    flight_date = st.date_input('Flight Date')
+with col2:
+    days_left = st.slider('Days Left for Flight', 0, 365, 30)
+with col3:
+    total_stopover_time = st.text_input('Total Stopover Time (e.g., "3h 25m")', '0')
 
 # Function to convert duration strings to minutes
 def duration_to_minutes(duration):
