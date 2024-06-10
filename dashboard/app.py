@@ -4,6 +4,7 @@ import joblib
 import re
 import datetime
 from pathlib import Path
+import base64
 
 # Define the base path to the model directory
 base_path = Path(__file__).parent
@@ -17,18 +18,34 @@ for col in ['Airline', 'Source', 'Destination', 'Number of Stops', 'Class']:
     encoder_path = base_path / 'model' / f'{col}_encoder.pkl'
     encoders[col] = joblib.load(encoder_path)
 
-# Custom CSS for background image
+# Function to encode image to base64
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+# Path to the profile image file
+profile_img_path = base_path / 'image' / 'airplane.jpg'
+profile_img_base64 = get_base64_of_bin_file(profile_img_path)
+
+# Custom CSS for profile image
 st.markdown(
-    """
+    f"""
     <style>
-    .stApp {
-        background-image: url("https://www.link_to_your_image.jpg");
-        background-size: cover;
-    }
-    .sidebar .sidebar-content {
-        background: rgba(255, 255, 255, 0.9);
-    }
+    .profile-pic {{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        border-radius: 50%;
+        transition: opacity 0.5s ease-in-out;
+        opacity: 0.8;
+    }}
+    .profile-pic:hover {{
+        opacity: 1;
+    }}
     </style>
+    <img src="data:image/jpg;base64,{profile_img_base64}" class="profile-pic">
     """,
     unsafe_allow_html=True
 )
