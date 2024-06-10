@@ -59,7 +59,7 @@ st.markdown(
 # Display profile picture with fading effect
 
 # User inputs
-st.title('Airline Ticket Price Prediction')
+st.title('Airline Ticket Price Prediction(Data Detectives)')
 
 st.subheader('Airline Information')
 col1, col2, col3 = st.columns([1, 1, 1])
